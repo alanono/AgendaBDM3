@@ -54,10 +54,21 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/email" >
+            android:text="@string/fone2">
         </TextView>
         <EditText
             android:id="@+id/editText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </EditText>
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/email" >
+        </TextView>
+        <EditText
+            android:id="@+id/editText4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
         </EditText>
