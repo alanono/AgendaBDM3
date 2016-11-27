@@ -18,7 +18,7 @@ public class ContatoDAO {
         this.dbHelper=new SQLiteHelper(context);
     }
 
-    public  List<Contato> buscaContato(String nome)
+    public  List<Contato> buscaContato(String nomeOuFone)
     {
         database=dbHelper.getReadableDatabase();
         List<Contato> contatos = new ArrayList<>();
@@ -29,9 +29,9 @@ public class ContatoDAO {
         String where=null;
         String[] argWhere=null;
 
-        if (nome!=null) {
-            where = SQLiteHelper.KEY_NAME + " like ?";
-            argWhere = new String[]{nome + "%"};
+        if (nomeOuFone!=null) {
+            where = SQLiteHelper.KEY_NAME + " like ? or " + SQLiteHelper.KEY_FONE + " like ?";
+            argWhere = new String[]{nomeOuFone + "%", nomeOuFone + "%"};
         }
 
 

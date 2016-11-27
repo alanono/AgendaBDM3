@@ -99,9 +99,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected void setupRecylerView(String nomeContato) {
+    protected void setupRecylerView(String nomeOuFone) {
 
-        contatos = cDAO.buscaContato(nomeContato);
+        contatos = cDAO.buscaContato(nomeOuFone);
 
         adapter = new ContatoAdapter(contatos, this);
         recyclerView.setAdapter(adapter);
