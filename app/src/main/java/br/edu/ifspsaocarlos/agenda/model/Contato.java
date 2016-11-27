@@ -9,6 +9,7 @@ public class Contato implements Serializable{
     private String fone;
     private String fone2;
     private String email;
+    private String aniv;
 
     public Contato()
     {
@@ -43,6 +44,12 @@ public class Contato implements Serializable{
     }
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getAniv() {
+        return aniv;
+    }
+    public void setAniv(String aniv) {
+        this.aniv = aniv;
     }
 }
 

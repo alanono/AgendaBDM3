@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import br.edu.ifspsaocarlos.agenda.data.ContatoDAO;
 import br.edu.ifspsaocarlos.agenda.model.Contato;
@@ -36,6 +37,8 @@ public class DetalheActivity extends AppCompatActivity {
             foneText2.setText(c.getFone2());
             EditText emailText = (EditText)findViewById(R.id.editText4);
             emailText.setText(c.getEmail());
+            EditText anivText = (EditText)findViewById(R.id.editText5);
+            anivText.setText(c.getAniv());
             int pos =c.getNome().indexOf(" ");
             if (pos==-1)
                 pos=c.getNome().length();
@@ -84,6 +87,13 @@ public class DetalheActivity extends AppCompatActivity {
         String fone = ((EditText) findViewById(R.id.editText2)).getText().toString();
         String fone2 = ((EditText) findViewById(R.id.editText3)).getText().toString();
         String email = ((EditText) findViewById(R.id.editText4)).getText().toString();
+        String aniv = ((EditText) findViewById(R.id.editText5)).getText().toString();
+
+        if(!isDataAnivValida(aniv)){
+            Toast.makeText(this, "Date de aniversário inválida", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         if (c==null)
         {
             c = new Contato();
@@ -91,6 +101,7 @@ public class DetalheActivity extends AppCompatActivity {
             c.setFone(fone);
             c.setFone2(fone2);
             c.setEmail(email);
+            c.setAniv(aniv);
             cDAO.insereContato(c);
 
         }
@@ -100,12 +111,34 @@ public class DetalheActivity extends AppCompatActivity {
             c.setFone(fone);
             c.setFone2(fone2);
             c.setEmail(email);
+            c.setAniv(aniv);
             cDAO.atualizaContato(c);
 
         }
         Intent resultIntent = new Intent();
         setResult(RESULT_OK,resultIntent);
         finish();
+    }
+
+    private boolean isDataAnivValida(String aniv){
+        aniv = aniv.trim();
+        if(!aniv.isEmpty()){
+            String[] split = aniv.split("/");
+            if(split.length != 2){
+                return false;
+            }
+            try{
+                int dia = Integer.parseInt(split[0]);
+                int mes = Integer.parseInt(split[1]);
+                if(dia < 1 || dia > 31 || mes < 1 || mes > 12){
+                    return false;
+                }
+
+            }catch (NumberFormatException e){
+                return false;
+            }
+        }
+        return true;
     }
 }
 
