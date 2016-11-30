@@ -12,23 +12,27 @@ import android.widget.Toast;
 import br.edu.ifspsaocarlos.agenda.data.ContatoDAO;
 import br.edu.ifspsaocarlos.agenda.model.Contato;
 import br.edu.ifspsaocarlos.agenda.R;
+import io.realm.Realm;
 
 
 public class DetalheActivity extends AppCompatActivity {
     private Contato c;
     private ContatoDAO cDAO;
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detalhe);
-
+        realm = Realm.getDefaultInstance();
+        cDAO =  new ContatoDAO(realm);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         if (getIntent().hasExtra("contato"))
         {
-            this.c = (Contato) getIntent().getSerializableExtra("contato");
+            String id = getIntent().getStringExtra("contato");
+            this.c = cDAO.buscaContatoPorId(id);
             EditText nameText = (EditText)findViewById(R.id.editText1);
             nameText.setText(c.getNome());
             EditText foneText = (EditText)findViewById(R.id.editText2);
@@ -44,7 +48,6 @@ public class DetalheActivity extends AppCompatActivity {
                 pos=c.getNome().length();
             setTitle(c.getNome().substring(0,pos));
         }
-        cDAO = new ContatoDAO(this);
     }
 
     @Override
@@ -107,12 +110,7 @@ public class DetalheActivity extends AppCompatActivity {
         }
         else
         {
-            c.setNome(name);
-            c.setFone(fone);
-            c.setFone2(fone2);
-            c.setEmail(email);
-            c.setAniv(aniv);
-            cDAO.atualizaContato(c);
+            cDAO.atualizaContato(c, name, fone, fone2, email, aniv);
 
         }
         Intent resultIntent = new Intent();

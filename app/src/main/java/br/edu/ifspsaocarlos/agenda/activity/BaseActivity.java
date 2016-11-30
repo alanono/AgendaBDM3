@@ -20,6 +20,7 @@ import br.edu.ifspsaocarlos.agenda.adapter.ContatoAdapter;
 import br.edu.ifspsaocarlos.agenda.data.ContatoDAO;
 import br.edu.ifspsaocarlos.agenda.model.Contato;
 import br.edu.ifspsaocarlos.agenda.R;
+import io.realm.Realm;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,15 +34,15 @@ public class BaseActivity extends AppCompatActivity {
     private SearchView searchView;
 
     private ContatoAdapter adapter;
-
-
+    Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        realm = Realm.getDefaultInstance();
 
-        cDAO= new ContatoDAO(this);
+        cDAO = new ContatoDAO(realm);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +72,12 @@ public class BaseActivity extends AppCompatActivity {
 
         searchView.setIconifiedByDefault(true);
         return true;
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        realm.close();
     }
 
 
@@ -112,7 +119,7 @@ public class BaseActivity extends AppCompatActivity {
             public void onItemClick(View view, int position) {
                 final Contato contato = contatos.get(position);
                 Intent i = new Intent(getApplicationContext(), DetalheActivity.class);
-                i.putExtra("contato", contato);
+                i.putExtra("contato", contato.getId());
                 startActivityForResult(i, 2);
             }
         });
@@ -129,7 +136,6 @@ public class BaseActivity extends AppCompatActivity {
                 if (swipeDir == ItemTouchHelper.RIGHT) {
                     Contato contato = contatos.get(viewHolder.getAdapterPosition());
                     cDAO.apagaContato(contato);
-                    contatos.remove(viewHolder.getAdapterPosition());
                     recyclerView.getAdapter().notifyDataSetChanged();
 
                     showSnackBar("Contato removido");

@@ -1,24 +1,30 @@
 package br.edu.ifspsaocarlos.agenda.model;
 
 import java.io.Serializable;
+import java.util.UUID;
 
-public class Contato implements Serializable{
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+public class Contato extends RealmObject implements Serializable{
     private static final long serialVersionUID = 1L;
-    private long id;
+    public static final String CONTATO_ID = "id";
+    @PrimaryKey
+    private String id;
     private String nome;
     private String fone;
     private String fone2;
     private String email;
     private String aniv;
 
-    public Contato()
-    {
+    public Contato() {
+        id = UUID.randomUUID().toString();
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
     public String getNome() {
@@ -46,7 +52,7 @@ public class Contato implements Serializable{
         this.email = email;
     }
     public String getAniv() {
-        return aniv;
+        return this.aniv;
     }
     public void setAniv(String aniv) {
         this.aniv = aniv;
