@@ -16,7 +16,8 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             KEY_ID  +  " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             KEY_NAME + " TEXT NOT NULL, " +
             KEY_FONE + " TEXT, "  +
-            KEY_EMAIL + " TEXT);";
+            KEY_EMAIL + " TEXT, " +
+            KEY_FONE2 + " TEXT);";
 
     public static final String DATABASE_UPDATE_V2 = "ALTER TABLE "+ DATABASE_TABLE
             +" ADD " + KEY_FONE2 + " TEXT;";
