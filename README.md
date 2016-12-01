@@ -1,10 +1,5 @@
-# Agenda
-Projeto desenvolvido para a disciplina Banco de Dados para Computação Móvel (BDM) do curso de Especialização Lato Sensu em Desenvolvimento de Sistemas para Dispositivos Móveis do IFSP São Carlos.
-
-Para ver a documentação, acesse: https://pdalbem.github.io/Agenda/
-
-![ScreenShot](https://raw.github.com/pdalbem/Agenda/master/screenshots/screenshot1.jpg)
-
-![ScreenShot](https://raw.github.com/pdalbem/Agenda/master/screenshots/screenshot2.jpg)
-
-![ScreenShot](https://raw.github.com/pdalbem/Agenda/master/screenshots/screenshot3.jpg)
+Cada exercicio se encontra em uma branch (cada branch possui as funcionalidades da versão anterior)
+v2.0 - Campo telefone na listagem e pesquisa por telefone
+v3.0 - Inclusão de mais um campo para telefone
+v4.0 - Inclusão da data de aniversário - ultima versão com SQLite
+v5.0 - Alterado SQLite para Realm
